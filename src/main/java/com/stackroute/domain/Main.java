@@ -1,19 +1,14 @@
 package com.stackroute.domain;
 
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-        Actor actor = context.getBean(Actor.class);
-        movie movie = context.getBean(movie.class);
-        movie.displayDetails(actor);
-
-
-
-
-
-
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        ((ClassPathXmlApplicationContext) applicationContext).registerShutdownHook();
+        BeanLifeCycleDemo beanLifeCycleDemo = (BeanLifeCycleDemo) applicationContext.getBean("cycle");
     }
 }
